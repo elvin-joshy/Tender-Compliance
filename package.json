@@ -1,0 +1,28 @@
+{
+  "name": "tender-compliance",
+  "version": "1.0.0",
+  "description": "Backend system for file upload and data storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests configured\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elvin-joshy/Tender-Compliance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elvin-joshy/Tender-Compliance/issues"
+  },
+  "homepage": "https://github.com/elvin-joshy/Tender-Compliance#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.3.3",
+    "multer": "^2.1.1"
+  }
+}
