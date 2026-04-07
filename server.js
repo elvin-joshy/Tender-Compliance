@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const tenderRoutes = require("./routes/tenderRoutes");
 const analysisRoutes = require("./routes/analysisRoutes");
+const rfpRoutes = require("./routes/rfpRoutes");
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/tenders", tenderRoutes);
 app.use("/api/analysis", analysisRoutes);
+app.use("/api/rfp", rfpRoutes);
 
 app.use((err, req, res, next) => {
   if (err && err.name === "MulterError") {

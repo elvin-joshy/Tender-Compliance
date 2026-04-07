@@ -8,6 +8,7 @@ import Upload from "./pages/Upload";
 import Results from "./pages/Results";
 import History from "./pages/History";
 import NotFound from "./pages/NotFound";
+import VendorRanking from "./pages/VendorRanking";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/upload" element={<Upload />} />
           <Route path="/results" element={<Results />} />
           <Route path="/history" element={<History />} />
+          <Route path="/vendor-ranking" element={<VendorRanking />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -16,6 +16,12 @@ const Landing = () => {
           </div>
           <div className="flex items-center gap-3">
             <button
+              onClick={() => navigate("/vendor-ranking")}
+              className="px-4 py-2 rounded-lg bg-accent text-accent-foreground text-sm font-medium transition-all hover:opacity-90"
+            >
+              Vendor Ranking
+            </button>
+            <button
               onClick={() => navigate("/history")}
               className="px-4 py-2 rounded-lg bg-muted text-foreground text-sm font-medium transition-all hover:bg-muted/80"
             >
