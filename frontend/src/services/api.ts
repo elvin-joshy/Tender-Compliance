@@ -1,4 +1,9 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL || "/api").replace(/\/+$/, "");
+
+const buildUrl = (path: string): string => {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${BASE_URL}${normalizedPath}`;
+};
 
 export type ValidationResultItem = {
   requirement: string;
@@ -81,7 +86,7 @@ export async function validateProposal(
   formData.append("rfp", rfpFile);
   formData.append("proposal", proposalFile);
 
-  const response = await fetch(`${BASE_URL}/validate`, {
+  const response = await fetch(buildUrl("/validate"), {
     method: "POST",
     body: formData,
   });
@@ -94,7 +99,7 @@ export async function validateProposal(
 }
 
 export async function getAnalyses(): Promise<AnalysisRecord[]> {
-  const response = await fetch(`${BASE_URL}/analyses`);
+  const response = await fetch(buildUrl("/analyses"));
 
   if (!response.ok) {
     throw new Error(await toErrorMessage(response));
@@ -105,7 +110,7 @@ export async function getAnalyses(): Promise<AnalysisRecord[]> {
 }
 
 export async function getAnalysisById(analysisId: string): Promise<AnalysisRecord> {
-  const response = await fetch(`${BASE_URL}/analyses/${analysisId}`);
+  const response = await fetch(buildUrl(`/analyses/${analysisId}`));
 
   if (!response.ok) {
     throw new Error(await toErrorMessage(response));
@@ -115,7 +120,7 @@ export async function getAnalysisById(analysisId: string): Promise<AnalysisRecor
 }
 
 export async function deleteAnalysis(analysisId: string): Promise<void> {
-  const response = await fetch(`${BASE_URL}/analyses/${analysisId}`, {
+  const response = await fetch(buildUrl(`/analyses/${analysisId}`), {
     method: "DELETE",
   });
 

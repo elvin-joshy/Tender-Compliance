@@ -126,7 +126,8 @@ Optional environment variables:
 
 2. Frontend environment file:
    - Already provided at frontend/.env
-   - Default API target: http://127.0.0.1:8000
+   - VITE_API_BASE_URL controls the local Vite dev proxy target (default http://127.0.0.1:8000)
+   - Frontend API calls use /api by default
 
 3. Start frontend:
 
@@ -270,6 +271,7 @@ Demo flow:
 - MongoDB connection and collection are configurable via MONGO_URI, MONGO_DATABASE, MONGO_COLLECTION
 - Semantic model is loaded once and reused
 - Proposal sentence embeddings are cached to reduce recomputation
+- For Vercel frontend deploys with Railway backend, set BACKEND_API_URL in the Vercel project environment to your Railway API URL so frontend /api requests are proxied correctly
 
 ## Current Status
 

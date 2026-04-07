@@ -1,16 +1,17 @@
-# Deployment Guide (Vercel + Render + MongoDB Atlas)
+# Deployment Guide (Vercel + Railway + MongoDB Atlas)
 
 This guide deploys:
 
 - Frontend (React + Vite) on Vercel
-- Backend (FastAPI) on Render
+- Backend (FastAPI) on Railway
 - Database (MongoDB) on MongoDB Atlas
 
 ## What Is Already Prepared In This Repo
 
 - Vercel SPA rewrite config: frontend/vercel.json
-- Render backend blueprint: render.yaml
+- Vercel serverless API proxy: frontend/api/[...path].ts
 - Backend env template includes production origin guidance: pdf-extractor-api/.env.example
+- Railway start command file: pdf-extractor-api/Procfile
 
 ## 1) MongoDB Atlas
 
@@ -19,12 +20,14 @@ This guide deploys:
 3. Allow network access from your backend host (or 0.0.0.0/0 during setup).
 4. Copy connection string and keep it for MONGO_URI.
 
-## 2) Deploy Backend On Render
+## 2) Deploy Backend On Railway
 
-1. In Render, create a new service from this repository.
-2. If prompted, use render.yaml from the repo root.
-3. Confirm root directory is pdf-extractor-api.
-4. Set env vars in Render:
+1. In Railway, create a new project from this repository.
+2. Create a service from the repo and set the service Root Directory to pdf-extractor-api.
+3. Ensure Railway uses these commands (or rely on Procfile):
+   - Build Command: pip install -r requirements.txt
+   - Start Command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+4. Set env vars in Railway:
    - MONGO_URI = your Atlas connection string
    - ALLOWED_ORIGINS = https://your-frontend.vercel.app
    - MONGO_DATABASE = tender_compliance
@@ -33,12 +36,12 @@ This guide deploys:
    - MAX_UPLOAD_MB = 20
    - LOG_LEVEL = INFO
 5. Deploy and copy backend URL, example:
-   - https://your-api.onrender.com
+   - https://your-api.up.railway.app
 
 Verify backend:
 
-- GET https://your-api.onrender.com/health
-- GET https://your-api.onrender.com/analyses
+- GET https://your-api.up.railway.app/health
+- GET https://your-api.up.railway.app/analyses
 
 ## 3) Deploy Frontend On Vercel
 
@@ -49,8 +52,14 @@ Verify backend:
    - Build Command: npm run build
    - Output Directory: dist
 4. Add environment variable:
-   - VITE_API_BASE_URL = https://your-api.onrender.com
+   - BACKEND_API_URL = https://your-api.up.railway.app
 5. Deploy.
+
+How this works:
+
+- Browser calls /api/* on the same Vercel domain.
+- Vercel function at frontend/api/[...path].ts proxies to BACKEND_API_URL.
+- SPA routes still rewrite to index.html via frontend/vercel.json.
 
 ## 4) Validate End-To-End
 
@@ -59,7 +68,7 @@ Verify backend:
 3. Confirm it appears in History page.
 4. Open that history entry and verify Results page loads correctly.
 5. Optionally test report download:
-   - GET https://your-api.onrender.com/analyses/{analysis_id}/report
+   - GET https://your-api.up.railway.app/analyses/{analysis_id}/report
 
 ## 5) Optional: Vercel CLI Deployment (Frontend)
 
@@ -69,4 +78,4 @@ From frontend directory:
 - vercel
 - vercel --prod
 
-Set VITE_API_BASE_URL in Vercel project env after first link if needed.
+Set BACKEND_API_URL in Vercel project env after first link if needed.
