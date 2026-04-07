@@ -14,9 +14,8 @@ def clean_extracted_text(text: str) -> str:
     return normalized.strip()
 
 
-def extract_text_from_pdf(pdf_file: UploadFile) -> Dict[str, Any]:
+def extract_text_from_pdf_bytes(raw_bytes: bytes) -> Dict[str, Any]:
     try:
-        raw_bytes = pdf_file.file.read()
         if not raw_bytes:
             return {
                 "status": "error",
@@ -43,3 +42,17 @@ def extract_text_from_pdf(pdf_file: UploadFile) -> Dict[str, Any]:
             "page_count": 0,
             "error": f"PDF extraction failed: {str(exc)}",
         }
+
+
+def extract_text_from_pdf(pdf_file: UploadFile) -> Dict[str, Any]:
+    try:
+        raw_bytes = pdf_file.file.read()
+    except Exception as exc:
+        return {
+            "status": "error",
+            "text": "",
+            "page_count": 0,
+            "error": f"Unable to read uploaded file: {str(exc)}",
+        }
+
+    return extract_text_from_pdf_bytes(raw_bytes)

@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: tender-compliance-api
+    env: python
+    rootDir: pdf-extractor-api
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_NAME
+        value: Tender Compliance API
+      - key: APP_VERSION
+        value: 1.0.0
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: MAX_UPLOAD_MB
+        value: "20"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DATABASE
+        value: tender_compliance
+      - key: MONGO_COLLECTION
+        value: analyses
+      - key: MONGO_ANALYSIS_ID_FIELD
+        value: analysis_id

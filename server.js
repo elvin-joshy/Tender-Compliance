@@ -4,9 +4,8 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
-const fileRoutes = require("./routes/fileRoutes");
 const tenderRoutes = require("./routes/tenderRoutes");
-const submissionRoutes = require("./routes/submissionRoutes");
+const analysisRoutes = require("./routes/analysisRoutes");
 
 dotenv.config();
 
@@ -37,9 +36,8 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.use("/api/files", fileRoutes);
 app.use("/api/tenders", tenderRoutes);
-app.use("/api/submissions", submissionRoutes);
+app.use("/api/analysis", analysisRoutes);
 
 app.use((err, req, res, next) => {
   if (err && err.name === "MulterError") {

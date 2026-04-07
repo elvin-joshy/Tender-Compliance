@@ -1,0 +1,3 @@
+Our company provides ISO 27001 certification documents and audit reports.
+The platform supports role-based access control for admin, reviewer, and vendor roles.
+A detailed implementation plan with milestones and owners is included.

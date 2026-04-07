@@ -1,0 +1,4 @@
+Our organization maintains strong internal security controls.
+Support can be provided on a best-effort basis if possible.
+The product includes API endpoints for integration.
+Commercial terms will be finalized later.

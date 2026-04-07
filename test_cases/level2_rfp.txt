@@ -1,0 +1,4 @@
+The bidder must provide disaster recovery documentation.
+Payment terms shall include milestone-based cost release.
+The system is required to include audit logs for all user actions.
+Vendor compliance with local law is mandatory.

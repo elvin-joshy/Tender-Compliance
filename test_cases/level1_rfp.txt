@@ -1,0 +1,3 @@
+The vendor must provide ISO 27001 certification.
+The solution shall support role-based access control.
+A detailed implementation plan is required.
